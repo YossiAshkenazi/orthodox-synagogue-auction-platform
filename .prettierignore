@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+coverage/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Convex generated
+.convex/
+
+# Package files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment files
+.env*
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
+
+# Test results
+test-results/
+playwright-report/
+
+# Docker
+Dockerfile*
+
+# Documentation that should preserve formatting
+CHANGELOG.md
+LICENSE
+
+# Hebrew text files (preserve RTL formatting)
+*.he.md
+*.rtl.txt

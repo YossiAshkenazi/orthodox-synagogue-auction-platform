@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # Production Frontend
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile.prod
+    environment:
+      - NODE_ENV=production
+      - VITE_BACKEND_URL=${BACKEND_URL}
+      - VITE_CONVEX_URL=${VITE_CONVEX_URL}
+    networks:
+      - synagogue-network
+
+  # Production Backend
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile.prod
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - CONVEX_DEPLOYMENT=${CONVEX_DEPLOYMENT}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - JWT_SECRET=${JWT_SECRET}
+      - HEBCAL_API_KEY=${HEBCAL_API_KEY}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - synagogue-network
+
+  # Production Admin
+  admin:
+    build:
+      context: ./apps/admin
+      dockerfile: Dockerfile.prod
+    environment:
+      - NODE_ENV=production
+      - VITE_BACKEND_URL=${BACKEND_URL}
+      - VITE_CONVEX_URL=${VITE_CONVEX_URL}
+    depends_on:
+      - backend
+    networks:
+      - synagogue-network
+
+  # Redis with persistence
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    networks:
+      - synagogue-network
+
+  # Production Nginx
+  nginx:
+    image: nginx:alpine
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./docker/nginx/nginx.prod.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - backend
+      - admin
+    networks:
+      - synagogue-network
+
+volumes:
+  redis_data:
+
+networks:
+  synagogue-network:
+    driver: bridge
