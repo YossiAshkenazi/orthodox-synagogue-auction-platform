@@ -1,0 +1,31 @@
+{
+  "name": "@synagogue-auction/convex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Convex database functions and schema for Orthodox Synagogue Honor Auction Platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "convex dev",
+    "deploy": "convex deploy",
+    "dashboard": "convex dashboard",
+    "codegen": "convex codegen",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+  },
+  "dependencies": {
+    "convex": "^1.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.4.2"
+  },
+  "keywords": [
+    "convex",
+    "database",
+    "synagogue",
+    "auction",
+    "hebrew",
+    "bilingual"
+  ]
+}
