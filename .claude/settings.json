@@ -42,6 +42,10 @@
           },
           {
             "type": "command",
+            "command": "uv run .claude/hooks/commit_reminder.py"
+          },
+          {
+            "type": "command",
             "command": "uv run .claude/hooks/send_event.py --source-app Ortho --event-type PostToolUse --summarize"
           }
         ]
