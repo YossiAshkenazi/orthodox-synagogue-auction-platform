@@ -1,0 +1,68 @@
+{
+  "name": "@synagogue-auction/hebrew-calendar",
+  "version": "0.1.0",
+  "description": "Comprehensive Hebrew calendar service with date conversion, holiday detection, and zmanim calculations for Orthodox synagogue applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/ --ext .ts",
+    "lint:fix": "eslint src/ --ext .ts --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "hebrew-calendar",
+    "jewish-calendar", 
+    "zmanim",
+    "holiday-detection",
+    "gematria",
+    "synagogue",
+    "orthodox",
+    "date-conversion"
+  ],
+  "dependencies": {
+    "@hebcal/core": "^5.4.4",
+    "@hebcal/hdate": "^0.11.3",
+    "@hebcal/zmanim": "^0.5.1",
+    "date-fns": "^3.3.1",
+    "date-fns-tz": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.4.2",
+    "vitest": "^1.3.1",
+    "@vitest/coverage-v8": "^1.3.1",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "require": "./dist/types/index.js", 
+      "types": "./dist/types/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "restricted"
+  }
+}
