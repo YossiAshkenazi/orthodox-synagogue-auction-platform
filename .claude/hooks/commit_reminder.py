@@ -165,6 +165,7 @@ class CommitReminder:
             "• Use atomic commits (one logical change per commit)",
             "• Write clear, descriptive commit messages",
             "• Consider using conventional commit format: `type(scope): description`",
+            "• Don't ask for permissions to commit - just commit your work",
             "",
             "🏷️ **Common commit types:** feat, fix, docs, style, refactor, test, chore",
             "",

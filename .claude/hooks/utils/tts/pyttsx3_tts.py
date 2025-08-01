@@ -30,13 +30,6 @@ def main():
     try:
         import pyttsx3
         
-        # Initialize TTS engine
-        engine = pyttsx3.init()
-        
-        # Configure engine settings
-        engine.setProperty('rate', 180)    # Speech rate (words per minute)
-        engine.setProperty('volume', 0.8)  # Volume (0.0 to 1.0)
-        
         print("🎙️  pyttsx3 TTS")
         print("=" * 15)
         
@@ -57,11 +50,29 @@ def main():
         print(f"🎯 Text: {text}")
         print("🔊 Speaking...")
         
-        # Speak the text
-        engine.say(text)
-        engine.runAndWait()
-        
-        print("✅ Playback complete!")
+        try:
+            # Initialize TTS engine
+            engine = pyttsx3.init()
+            
+            # Configure engine settings
+            engine.setProperty('rate', 180)    # Speech rate (words per minute)
+            engine.setProperty('volume', 0.8)  # Volume (0.0 to 1.0)
+            
+            # Speak the text
+            engine.say(text)
+            engine.runAndWait()
+            
+            print("✅ Playback complete!")
+            
+        except Exception as e:
+            # Handle Linux/WSL audio issues gracefully
+            if "eSpeak" in str(e) or "ALSA" in str(e) or "audio" in str(e).lower():
+                print("⚠️  Audio not available in this environment (Docker/WSL)")
+                print("💡 TTS will fall back to API-based solutions")
+                # Exit successfully to allow fallback to other TTS methods
+                sys.exit(0)
+            else:
+                raise e
         
     except ImportError:
         print("❌ Error: pyttsx3 package not installed")

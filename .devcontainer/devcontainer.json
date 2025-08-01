@@ -14,9 +14,15 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-python.pylint"
+        "ms-python.pylint",
+        "Anthropic.claude-code"
       ]
     }
+  },
+  "remoteEnv": {
+    "OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}",
+    "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+    "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}"
   },
   "remoteUser": "vscode"
 }
