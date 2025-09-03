@@ -11,6 +11,60 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
   VIOLATION CHECK: If you used TodoWrite first, you violated this rule. Stop and restart with Archon.
 
+# CRITICAL: SUBAGENT DELEGATION RULE - MANDATORY TOKEN CONSERVATION
+  
+  **THE CONTEXT WINDOW CRISIS**: Every Claude Code session has limited context (200K tokens). Sequential work pollutes the main context with exploration noise, rapidly consuming tokens and degrading performance.
+
+  ## MANDATORY SUBAGENT DELEGATION PROTOCOL
+
+  **RULE: Claude must NOT perform complex tasks directly. ALWAYS delegate to subagents via Task tool to conserve primary session context.**
+
+  ### ALWAYS DELEGATE TO SUBAGENTS:
+  - File searches, code analysis, and exploration
+  - Multi-step debugging and troubleshooting  
+  - Large file operations and modifications
+  - Research and documentation tasks
+  - Code generation and refactoring
+  - Testing and validation workflows
+
+  ### KEEP IN MAIN CONTEXT ONLY:
+  - Final coordination and decision-making
+  - High-level orchestration
+  - User interaction and clarification
+  - Brief summaries from subagent results
+
+  ### THE DRAMATIC DIFFERENCE:
+  **WITHOUT SUBAGENTS (Context Killer):**
+  ```
+  Main Context accumulates:
+  - 50 file searches → +30K tokens
+  - 10 large file reads → +40K tokens  
+  - 3 approach attempts → +20K tokens
+  - Final solution → +10K tokens
+  Total: 100K tokens polluting main context ❌
+  ```
+
+  **WITH SUBAGENTS (Context Saver):**
+  ```
+  Subagents work in isolated contexts:
+  - Search Agent: 30K tokens used → Returns 500-token summary ✓
+  - Analysis Agent: 40K tokens used → Returns 1K-token report ✓
+  - Solution Agent: 20K tokens used → Returns best approach ✓
+  Total: 2.5K tokens in main context ✅
+  ```
+
+  ### SUBAGENT TASK TEMPLATE:
+  ```
+  Task: [Specific objective]
+  Context: [Minimal context needed]
+  Deliverable: [Concise summary/result expected]
+  Constraints: [Time/scope limits]
+  ```
+
+  **VIOLATION CHECK**: If Claude performs complex analysis, searches, or multi-step operations directly in main context, this rule was violated. STOP and delegate to subagents immediately.
+
+  **This rule is MANDATORY for session longevity, performance optimization, and cost efficiency. NO EXCEPTIONS.**
+
 ## Project Overview
 
 This is an Orthodox Synagogue Honor Auction Platform - a modern web application for conducting synagogue honor auctions with comprehensive Hebrew/English bilingual support and Jewish calendar integration. The platform is built as a monorepo using pnpm workspaces and Turborepo.
